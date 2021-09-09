@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.facebook.airlift</groupId>
+        <artifactId>airbase</artifactId>
+        <version>101</version>
+    </parent>
+
+    <groupId>com.facebook.presto</groupId>
+    <artifactId>presto-jmx-root</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>presto-jmx-root</name>
+    <description> Presto JMX plugin </description>
+
+    <properties>
+        <dep.presto.version>0.262-SNAPSHOT</dep.presto.version>
+        <dep.airlift.version>0.201</dep.airlift.version>
+        <dep.slice.version>0.38</dep.slice.version>
+        <air.check.skip-spotbugs>true</air.check.skip-spotbugs>
+        <air.check.skip-pmd>true</air.check.skip-pmd>
+        <air.check.skip-jacoco>true</air.check.skip-jacoco>
+        <air.checkstyle.config-file>src/checkstyle/presto-checks.xml</air.checkstyle.config-file>
+
+        <dep.antlr.version>4.7.1</dep.antlr.version>
+        <dep.packaging.version>${dep.airlift.version}</dep.packaging.version>
+        <dep.slice.version>0.38</dep.slice.version>
+        <dep.testing-mysql-server-5.version>0.6</dep.testing-mysql-server-5.version>
+        <dep.aws-sdk.version>1.11.697</dep.aws-sdk.version>
+        <dep.okhttp.version>3.9.0</dep.okhttp.version>
+        <dep.jdbi3.version>3.4.0</dep.jdbi3.version>
+        <dep.oracle.version>19.3.0.0</dep.oracle.version>
+        <dep.drift.version>1.33</dep.drift.version>
+        <!-- Changing joda version changes tzdata which must match deployed JVM tzdata
+             Do not change this without also making sure it matches -->
+        <dep.joda.version>2.10.8</dep.joda.version>
+        <dep.tempto.version>1.51</dep.tempto.version>
+        <dep.testng.version>6.10</dep.testng.version>
+        <dep.assertj-core.version>3.8.0</dep.assertj-core.version>
+        <dep.logback.version>1.2.3</dep.logback.version>
+        <dep.parquet.version>1.11.0</dep.parquet.version>
+        <dep.nexus-staging-plugin.version>1.6.8</dep.nexus-staging-plugin.version>
+        <dep.asm.version>9.0</dep.asm.version>
+        <dep.gcs.version>1.9.17</dep.gcs.version>
+        <dep.alluxio.version>2.6.1</dep.alluxio.version>
+        <dep.kafka.version>2.3.1</dep.kafka.version>
+        <dep.druid.version>0.19.0</dep.druid.version>
+        <dep.jaxb.version>2.3.1</dep.jaxb.version>
+        <dep.hudi.version>0.5.3</dep.hudi.version>
+        <dep.testcontainers.version>1.15.1</dep.testcontainers.version>
+        <!--
+          America/Bahia_Banderas has:
+           - offset change since 1970 (offset Jan 1970: -08:00, offset Jan 2018: -06:00)
+           - DST (e.g. at 2017-04-02 02:00:00 clocks turned forward 1 hour; 2017-10-29 02:00:00 clocks turned backward 1 hour)
+           - has forward offset change on first day of epoch (1970-01-01 00:00:00 clocks turned forward 1 hour)
+           - had forward change at midnight (1970-01-01 00:00:00 clocks turned forward 1 hour)
+          -->
+        <air.test.timezone>America/Bahia_Banderas</air.test.timezone>
+        <air.test.parallel>methods</air.test.parallel>
+        <air.test.thread-count>2</air.test.thread-count>
+        <air.test.jvmsize>4g</air.test.jvmsize>
+    </properties>
+    
+    <modules>
+        <module>presto-jmx-plugin</module>
+    </modules>
+
+    <dependencyManagement>
+    <dependencies>
+
+        <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-spi</artifactId>
+            <scope>provided</scope>
+            <version>${dep.presto.version}</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-testng-services</artifactId>
+            <version>${dep.presto.version}</version>
+        </dependency>                
+    
+        <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-client</artifactId>
+            <version>${dep.presto.version}</version>
+        </dependency>
+
+         <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-main</artifactId>
+            <version>${dep.presto.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-tests</artifactId>
+            <version>${dep.presto.version}</version>
+        </dependency>
+
+
+       <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.airlift</groupId>
+            <artifactId>slice</artifactId>
+            <version>${dep.slice.version}</version>
+        </dependency>
+
+
+       <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+
+     <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+    </dependencies>
+    </dependencyManagement>
+</project>
